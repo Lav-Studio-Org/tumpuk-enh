@@ -225,11 +225,6 @@ const DataManifest = [
 		"src": "url('data/fnt/Super Bouncer.ttf')"
 	},
 	{
-		"name": "modar",
-		"type": "video",
-		"src": "data/video/modar.mp4"
-	},
-	{
 		"name": "texture_Level_Gameplay_0",
 		"type": "image",
 		"src": "./data/image/texture_Level_Gameplay_0.webp"

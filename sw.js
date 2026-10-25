@@ -1,7 +1,7 @@
 // Offline cache. The app shell is cached on install; everything else (atlases,
 // audio, level data) is cached the first time it loads and refreshed in the
 // background. Bump CACHE on every release (docs/RELEASE.md).
-const CACHE = 'tumpuk-v1.0.0';
+const CACHE = 'tumpuk-v1.0.1';
 const SHELL = [
   './',
   'index.html',

@@ -21,7 +21,12 @@ const shotsDir = process.argv.includes('--shots') ? process.argv[process.argv.in
     } catch (e) {
       console.log('FAILED');
       console.error('Page errors so far:\n' + (errors.join('\n') || '(none)'));
-      console.error('Scene:', await page.evaluate(() => window.__tumpuk ? window.__tumpuk.melon.scene.current() : 'no __tumpuk').catch(() => '?'));
+      console.error('State:', await page.evaluate(() => JSON.stringify({
+        scene: window.__tumpuk ? window.__tumpuk.melon.scene.current() : 'no __tumpuk',
+        gameOver: window.__tumpuk?.game.var.isGameOver,
+        modals: [...document.querySelectorAll('.modal')].map((m) => m.className),
+        ads: document.querySelectorAll('.ad-mock').length
+      })).catch(() => '?'));
       throw e;
     }
     if (shotsDir) await page.screenshot({ path: `${shotsDir}/${name.replace(/\W+/g, '-')}.png` });
@@ -78,8 +83,8 @@ const shotsDir = process.argv.includes('--shots') ? process.argv[process.argv.in
     await T(() => window.__tumpuk.game.ui.trySkill('hammer', () => { window.__tumpuk.game.var.skillActive = 'hammer'; }));
     await page.waitForSelector('.modal.shop.show');
     await T(() => document.querySelector('.modal.shop [data-act="ad"]').click());
-    await page.waitForSelector('.ad-close:not([disabled])');
-    await T(() => document.querySelector('.ad-close').click());
+    await page.waitForSelector('.ad-mock.show .ad-close:not([disabled])');
+    await T(() => document.querySelector('.ad-mock.show .ad-close').click());
     await page.waitForFunction(() => window.__tumpuk.game.var.skillActive === 'hammer');
     await page.waitForSelector('.skill-banner.show');
     await T(() => document.querySelector('.skill-cancel').click());
@@ -90,8 +95,8 @@ const shotsDir = process.argv.includes('--shots') ? process.argv[process.argv.in
     await T(() => window.__tumpuk.me.state.current().triggerGameOver());
     await page.waitForSelector('.modal.revive.show');
     await T(() => document.querySelector('.modal.revive [data-act="ad"]').click());
-    await page.waitForSelector('.ad-close:not([disabled])');
-    await T(() => document.querySelector('.ad-close').click());
+    await page.waitForSelector('.ad-mock.show .ad-close:not([disabled])');
+    await T(() => document.querySelector('.ad-mock.show .ad-close').click());
     await page.waitForFunction(() => !window.__tumpuk.game.var.isGameOver && !document.querySelector('.modal'));
   });
 
