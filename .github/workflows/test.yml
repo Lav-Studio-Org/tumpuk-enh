@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/check-no-emoji.js
+      - name: Syntax check
+        run: for f in index.js manifest.js sw.js $(find js scripts -name '*.js'); do node --check "$f" || exit 1; done
+      - name: Smoke test (Playwright)
+        run: |
+          npx -y playwright@1.49.1 install --with-deps chromium
+          npm i --no-save playwright@1.49.1
+          python3 -m http.server 8123 >/dev/null 2>&1 &
+          sleep 2
+          node scripts/smoke.js

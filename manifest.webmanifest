@@ -1,0 +1,17 @@
+{
+  "name": "Tumpuk! Gabung Buah dan Jajanan Nusantara",
+  "short_name": "Tumpuk!",
+  "description": "Jatuhkan, gabungkan, dan tumpuk benda yang sama di 7 dunia Nusantara.",
+  "lang": "id",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#2b6a1f",
+  "theme_color": "#2b6a1f",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -31,6 +31,10 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+#ui *,
+#ui *::before,
+#ui *::after { box-sizing: border-box; }
+
 #ui .stage {
     position: absolute;
     left: 0;
@@ -104,14 +108,14 @@
     width: 470px;
     height: 720px;
     background-image: url("../ui/panel.webp");
-    padding: 238px 56px 58px;
+    padding: 238px 66px 58px;
 }
 
 .panel-small {
     width: 460px;
     height: 544px;
     background-image: url("../ui/panel-small.webp");
-    padding: 120px 44px 64px 36px;
+    padding: 124px 56px 60px 48px;
 }
 
 .panel-title {
@@ -157,7 +161,7 @@
     margin: -14px 0;
     background: center / contain no-repeat;
     color: #fff;
-    font-size: 34px;
+    font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -180,7 +184,7 @@
 .btn-green { background-image: url("../ui/btn-green.webp"); }
 .btn-green span { text-shadow: 0 2px 0 rgba(20, 70, 0, 0.6); }
 .btn.small { width: 230px; height: 96px; font-size: 26px; margin: -10px 0; }
-.btn .ic { width: 36px; height: 36px; --acc: #fff; }
+.btn .ic { width: 32px; height: 32px; --acc: #fff; }
 .btn.small .ic { width: 28px; height: 28px; }
 
 .btn-col {
