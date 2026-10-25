@@ -1,17 +1,28 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html lang="id">
 	<head>
 		<meta charset="utf-8"/>
-		<title>melonJS Game</title>
-		<link rel="stylesheet" type="text/css" media="screen" href="index.css">
-		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Tumpuk! Gabung Buah dan Jajanan Nusantara</title>
+		<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+		<meta name="description" content="Jatuhkan, gabungkan, dan tumpuk buah, jajanan pasar, sampai hewan hutan di 7 dunia Nusantara. Gratis, main langsung di browser.">
+		<meta property="og:title" content="Tumpuk!">
+		<meta property="og:description" content="Jatuhkan, gabungkan, dan tumpuk benda yang sama di 7 dunia Nusantara.">
+		<meta property="og:image" content="icon-512.png">
+		<meta name="theme-color" content="#2b6a1f">
 		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-title" content="Tumpuk!">
+		<link rel="manifest" href="manifest.webmanifest">
+		<link rel="icon" type="image/png" href="icon-192.png">
+		<link rel="apple-touch-icon" href="icon-180.png">
+		<link rel="stylesheet" type="text/css" media="screen" href="index.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="css/ui.css">
 	</head>
 	<body>
 		<!-- Canvas placeholder -->
 		<div id="screen"></div>
-
-		<!-- Plugin(s) -->
+		<div id="boot" aria-hidden="true"><img src="ui/logo.webp" alt=""><div class="boot-bar"><i></i></div></div>
 
 		<script type="module">
 			import { device } from './dist/melonjs.module.js';
@@ -20,6 +31,10 @@
 			device.onReady(async () => {
 				await onload();
 			});
+
+			if ('serviceWorker' in navigator && location.protocol === 'https:') {
+				window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+			}
 		</script>
 
 	</body>

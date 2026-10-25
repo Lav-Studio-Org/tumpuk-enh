@@ -144,6 +144,7 @@ import * as util from './js/script/util.js'
 import * as achievement from './js/script/achievement.js'
 
 
+import { initUI } from './js/ui/ui.js'
 import DataManifest, { TextureManifest, LevelTextureSettings, InitiallyLoadedTextures } from './manifest.js'
 
 /**
@@ -169,6 +170,7 @@ export default async function onload() {
 	await app.init();
 	application = app;
 	game.application = app;
+	game.VERSION = "1.0.0";
 
 	configureMelonJs20Runtime({ application, gameData: game });
 
@@ -190,6 +192,11 @@ export default async function onload() {
 		if (src) return { name: resource.name, type: 'shader', src };
 		console.warn('Shader ' + resource.name + ' has no source for ' + language + '; effect disabled.');
 		return { name: resource.name, type: 'shader', data: language === 'wgsl' ? { glsl: '' } : { wgsl: '' } };
+	});
+	// Boot screen progress (the canvas loader is hidden behind #boot).
+	me.event.on(me.event.LOADER_PROGRESS, (progress) => {
+		const bar = document.querySelector("#boot .boot-bar i");
+		if (bar) bar.style.width = Math.round(progress * 100) + "%";
 	});
 	me.loader.preload(selectedManifest, async function() {
 		me.state.Gameplay = "Gameplay";
@@ -527,6 +534,8 @@ export default async function onload() {
 		game.ShaderManager?.initLoadedShaders(me.game.renderer);
 		me.state.change(me.state.LoadingGame);
 		game.util.loadLazyAudio();
+		initUI();
+		document.getElementById("boot")?.remove();
 	},false);
 
 };

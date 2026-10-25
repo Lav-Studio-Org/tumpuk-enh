@@ -834,7 +834,7 @@ draw(renderer) {
             renderer,
 
             `+${reward.toLocaleString(
-                "en-US"
+                "id-ID"
             )}`,
 
             badgeX +

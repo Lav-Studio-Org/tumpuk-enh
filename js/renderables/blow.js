@@ -121,7 +121,7 @@ export default class blow extends me.Sprite {
         if (game.var.isGameOver) {
             return false;
         }
-        this.skill1();
+        game.ui.trySkill("blower", () => this.skill1());
         //  End of user code  //
 		return false;
 	}

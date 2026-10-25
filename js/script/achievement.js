@@ -392,7 +392,7 @@ function giveReward(
     game.var.coinObj?.setText?.(
         game.var.coinValue
             .toLocaleString(
-                "en-US"
+                "id-ID"
             )
     );
 }

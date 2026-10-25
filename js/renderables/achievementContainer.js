@@ -791,9 +791,9 @@ export default class achievementContainer extends me.Renderable{
             renderer,
 
             `${progress.toLocaleString(
-                "en-US"
+                "id-ID"
             )} / ${target.toLocaleString(
-                "en-US"
+                "id-ID"
             )}`,
 
             x + 18,
@@ -825,7 +825,7 @@ export default class achievementContainer extends me.Renderable{
             reward > 0
 
                 ? `+${reward.toLocaleString(
-                    "en-US"
+                    "id-ID"
                 )} COIN`
 
                 : "",

@@ -22,3 +22,50 @@ body {
   /* Hide the gap for font descenders. */
   display: block;
 }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* Boot screen shown while the first assets load. */
+#boot {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: radial-gradient(circle at 50% 40%, #6fbf4a, #2b6a1f 70%);
+}
+
+#boot img {
+  width: min(72vw, 360px);
+  animation: boot-bob 1.6s ease-in-out infinite alternate;
+}
+
+.boot-bar {
+  width: min(56vw, 260px);
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 0 3px #7a4a22;
+  overflow: hidden;
+}
+
+.boot-bar i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(#ffd36a, #f59a23);
+  transition: width 0.2s;
+}
+
+@keyframes boot-bob { to { transform: translateY(-8px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  #boot img { animation: none; }
+}

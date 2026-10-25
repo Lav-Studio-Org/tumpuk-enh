@@ -72,9 +72,9 @@ export default class resultContainer extends me.UIBaseElement {
 	onActivateEvent() {
 		super.onActivateEvent();
         // Put user code here //
-        game.var.highscoreResult.setText(game.var.highscoreValue.toLocaleString("en-US"));
-        game.var.scoreResult.setText(game.var.finalScore.toLocaleString("en-US"));
-        game.var.coinResult.setText(game.var.rewardCoin.toLocaleString("en-US"));
+        game.var.highscoreResult.setText(game.var.highscoreValue.toLocaleString("id-ID"));
+        game.var.scoreResult.setText(game.var.finalScore.toLocaleString("id-ID"));
+        game.var.coinResult.setText(game.var.rewardCoin.toLocaleString("id-ID"));
         // melon.game.pause();
         //  End of user code  //
 	}

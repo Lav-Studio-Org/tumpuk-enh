@@ -134,7 +134,9 @@ export default class bomb extends me.Sprite {
             return false;
         }
 
-        game.var.skillActive = "bomb";
+        game.ui.trySkill("bomb", () => {
+            game.var.skillActive = "bomb";
+        });
         //  End of user code  //
 		return false;
 	}

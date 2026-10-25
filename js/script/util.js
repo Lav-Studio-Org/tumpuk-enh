@@ -20,7 +20,7 @@ game.util.addScore = function(amount) {
                 clearInterval(game.var.scoreInterval);
             }
 
-            game.var.scoreObj.setText(game.var.displayScore.toLocaleString("en-US"));
+            game.var.scoreObj.setText(game.var.displayScore.toLocaleString("id-ID"));
         }, 16);
     }
 
@@ -30,7 +30,7 @@ game.util.addScore = function(amount) {
         const level = String(game.var.currentLevel || "KEBUN").toUpperCase();
         melon.storage.set(`highscore_${level}`, game.var.highscoreValue);
 
-        if (game.var.highscoreObj) game.var.highscoreObj.setText(game.var.highscoreValue.toLocaleString("en-US"));
+        if (game.var.highscoreObj) game.var.highscoreObj.setText(game.var.highscoreValue.toLocaleString("id-ID"));
     }
 
     game.achievement?.onScore(

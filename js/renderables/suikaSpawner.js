@@ -832,6 +832,8 @@ export default class suikaSpawner extends me.Renderable{
 
         this.isDropping = true;
 
+        game.ui?.onDrop();
+
 
         // =========================
         // SIMPAN OBJECT SAAT INI

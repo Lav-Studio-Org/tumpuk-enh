@@ -85,7 +85,7 @@ export default class loadingAudio extends me.Renderable {
 			this.isAudioPaused = false;
 		};
 		this.audioGroup = this.resolveAudioGroup();
-		this.audio_ID = me.audio.play(this.audio_name, this.audioLoop, onAudioEnd, this.getMixerVolume() * this.audioVolume);
+		this.audio_ID = me.audio.play(this.audio_name, this.audioLoop, onAudioEnd, this.getMixerVolume() * this.audioVolume * (game.sound?.scale(this.audio_name) ?? 1));
 		this.isAudioPlaying = true;
 		this.applyAudioSettings();
 		if (this.isAudioMuted) this.muteAudio();
@@ -167,7 +167,7 @@ export default class loadingAudio extends me.Renderable {
 		try {
 			me.audio.rate(this.audio_name, this.audioPitch, this.audio_ID);
 			me.audio.stereo(this.audio_name, this.stereoPan, this.audio_ID);
-			me.audio.setAudioVolume(this.audio_name, this.getMixerVolume() * this.audioVolume);
+			me.audio.setAudioVolume(this.audio_name, this.getMixerVolume() * this.audioVolume * (game.sound?.scale(this.audio_name) ?? 1));
 		} catch (error) {
 			console.error(error.message);
 		}

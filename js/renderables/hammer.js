@@ -126,7 +126,9 @@ export default class hammer extends me.Sprite {
             return false;
         }
 
-        game.var.skillActive = "hammer";
+        game.ui.trySkill("hammer", () => {
+            game.var.skillActive = "hammer";
+        });
         //  End of user code  //
 		return false;
 	}

@@ -60,7 +60,7 @@ export default class playButton extends me.UIBaseElement {
 
 		this.posteffect = settings.posteffect ?? settings.postEffect ?? true;
 		/* built in function for adding container childs */
-		const childerns = [{"type":"imagelayer","name":"play button","image":"1609b110-a6a3-11f1-a488-a51177990e19","imageName":"play button","x":"176","y":"74","properties":[],"inspectors":{"alpha":1,"rotate":0,"scale":{"x":0.15,"y":0.15},"flip":{"x":false,"y":false},"z":null},"pivotX":0,"pivotY":0,"width":2172,"height":724,"regX":0,"regY":0,"renderLayer":"world"},{"type":"text","name":"text","x":"176","y":"74","inspectors":{"alpha":1,"rotate":0,"scale":{"x":1,"y":1},"flip":{"x":false,"y":false},"z":0},"text":"MULAI / JELAJAH","size":24,"family":"Super Bouncer","color":"#ffffff","bold":false,"italic":false,"lineHeight":"24","textAlign":"center","textBaseline":"middle","wordWrapWidth":301,"boxWidth":301,"boxHeight":32,"renderLayer":"world"}];
+		const childerns = [{"type":"imagelayer","name":"play button","image":"1609b110-a6a3-11f1-a488-a51177990e19","imageName":"play button","x":"176","y":"74","properties":[],"inspectors":{"alpha":1,"rotate":0,"scale":{"x":0.15,"y":0.15},"flip":{"x":false,"y":false},"z":null},"pivotX":0,"pivotY":0,"width":2172,"height":724,"regX":0,"regY":0,"renderLayer":"world"},{"type":"text","name":"text","x":"176","y":"74","inspectors":{"alpha":1,"rotate":0,"scale":{"x":1,"y":1},"flip":{"x":false,"y":false},"z":0},"text":"MAIN","size":34,"family":"Super Bouncer","color":"#ffffff","bold":false,"italic":false,"lineHeight":"34","textAlign":"center","textBaseline":"middle","wordWrapWidth":301,"boxWidth":301,"boxHeight":32,"renderLayer":"world"}];
 		this._addEditorChild(childerns, me, game);
 
         // Put user code here //

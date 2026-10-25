@@ -26,6 +26,13 @@ export default class Gameplay extends me.Stage {
         game.var.dangerTime = 0;
         game.var.skillActive = null;
         game.var.bombHoverTarget = null;
+        game.var.roundMaxLevel = 0;
+        game.var.bestAtStart = melon.storage.get(
+            `highscore_${String(game.var.currentLevel).toUpperCase()}`,
+            0
+        );
+        this.revived = false;
+        this.lockedAtStart = game.meta?.nextLockedWorld() ?? null;
 
         game.achievement?.onLevelStart(
             game.var.currentLevel
@@ -204,52 +211,7 @@ export default class Gameplay extends me.Stage {
         game.var.isGameOver = true;
         game.var.isDanger = false;
 
-        me.game.world.getChildren()
-            .filter(obj => obj instanceof suikaObj)
-            .forEach(obj => {
-                obj.body?.setVelocity?.(0, 0);
-                obj.body?.setStatic?.(true);
-            });
-
-
-        game.var.finalScore =
-            game.var.scoreValue;
-
-        game.achievement?.onGameOver({
-            score:
-                game.var.finalScore
-        });
-
-
-        // =========================
-        // RESULT CALCULATION
-        // =========================
-
-        const rewardCoin =
-            Math.floor(
-                Math.sqrt(game.var.finalScore) * 0.5
-            );
-
-        game.var.rewardCoin = rewardCoin;
-
-        game.var.coinValue =
-            (game.var.coinValue || 0) + rewardCoin;
-
-        melon.storage.set(
-            "coinValue",
-            game.var.coinValue
-        );
-
-
-
-        melon.object.spawn("resultContainer", {
-            // x: melon.game.width()/2,
-            // y: melon.game.height()/2,
-            x: 0, 
-            y: 0,
-            z: 9999
-        });
-
+        this.freezeObjects(true);
 
         me.game.world.getChildren()
             .filter(obj => obj instanceof blower)
@@ -263,6 +225,100 @@ export default class Gameplay extends me.Stage {
         game.var.blowerClosing = false;
         game.var.skillActive = null;
         game.var.bombHoverTarget = null;
+
+        // One "keep playing" offer per round (rewarded ad), then the result.
+        if (!this.revived && game.ui) {
+            game.ui.showRevive({
+                onRevive: () => this.revive(),
+                onDecline: () => this.finishGameOver()
+            });
+            return;
+        }
+
+        this.finishGameOver();
+    }
+
+    freezeObjects(frozen) {
+        me.game.world.getChildren()
+            .filter(obj => obj instanceof suikaObj)
+            .forEach(obj => {
+                obj.body?.setVelocity?.(0, 0);
+                obj.body?.setStatic?.(frozen);
+            });
+    }
+
+    // Clear the top of the jar and continue the same round.
+    revive() {
+        this.revived = true;
+
+        const clearLine = game.var.dangerY + 170;
+
+        me.game.world.getChildren()
+            .filter(obj => obj instanceof suikaObj)
+            .forEach(obj => {
+                if (obj.getBounds().top < clearLine) {
+                    melon.object.spawn("exp", {
+                        x: obj.pos.x,
+                        y: obj.pos.y,
+                        tint: "#FFFFFF",
+                        inspectors: { scale: { x: 3, y: 3 } }
+                    });
+                    melon.object.destroy(obj);
+                }
+            });
+
+        this.freezeObjects(false);
+
+        game.var.dangerTime = 0;
+        game.var.isDanger = false;
+        game.var.isGameOver = false;
+    }
+
+    finishGameOver() {
+
+        game.var.finalScore =
+            game.var.scoreValue;
+
+        const level =
+            String(game.var.currentLevel).toUpperCase();
+
+        game.achievement?.onGameOver({
+            score:
+                game.var.finalScore
+        });
+
+        game.meta.countGame();
+
+        // =========================
+        // RESULT CALCULATION
+        // =========================
+
+        const rewardCoin =
+            Math.floor(
+                Math.sqrt(game.var.finalScore) * 0.5
+            );
+
+        game.var.rewardCoin = rewardCoin;
+
+        game.meta.addCoins(rewardCoin);
+
+        // Worlds open from the best score of the previous one.
+        const unlocked =
+            this.lockedAtStart && game.meta.isUnlocked(this.lockedAtStart)
+                ? this.lockedAtStart
+                : null;
+
+        const objects =
+            game.var.suikaLevels[level] || [];
+
+        game.ui.showResult({
+            level,
+            score: game.var.finalScore,
+            bestBefore: game.var.bestAtStart || 0,
+            coins: rewardCoin,
+            biggest: objects[(game.var.roundMaxLevel || 0) - 1] || null,
+            unlocked
+        });
     }
 
     startLevelBGM() {
@@ -303,9 +359,7 @@ export default class Gameplay extends me.Stage {
         bgm.id =
             melon.audio.play(
                 bgmName,
-                true,
-                null,
-                0
+                { loop: true, volume: 0 }
             );
 
         bgm.playing = true;

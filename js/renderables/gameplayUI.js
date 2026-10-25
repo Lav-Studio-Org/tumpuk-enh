@@ -75,7 +75,7 @@ export default class gameplayUI extends me.UIBaseElement {
             );
 
         game.var.highscoreObj.setText(
-            game.var.highscoreValue.toLocaleString("en-US")
+            game.var.highscoreValue.toLocaleString("id-ID")
         );
 
         //  End of user code  //

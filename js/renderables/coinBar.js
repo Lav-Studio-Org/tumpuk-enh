@@ -62,7 +62,7 @@ export default class coinBar extends me.UIBaseElement {
         // Put user code here //
         game.var.coinObj = this.getChildByName("coinText")[0];
         game.var.coinObj.setText(
-            (game.var.coinValue || 0).toLocaleString("en-US")
+            (game.var.coinValue || 0).toLocaleString("id-ID")
         );
         //  End of user code  //
 	}

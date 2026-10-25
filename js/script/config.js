@@ -564,11 +564,49 @@ game.var.currentBGM = {
 // Depends on game.var.suikaLevels, so keep this after level data.
 // ============================================================
 
+// Display names (Bahasa Indonesia) for every object key used in suikaLevels.
+// Keys without an entry are split on capitals ("KueLumpur" -> "Kue Lumpur").
+game.var.objectNames = {
+    Cherry: "Ceri",
+    Strawberry: "Stroberi",
+    Orange: "Jeruk",
+    Apple: "Apel",
+    Mango: "Mangga",
+    Pear: "Pir",
+    Pineapple: "Nanas",
+    Coconut: "Kelapa",
+    Watermelon: "Semangka",
+    OndeOnde: "Onde-onde",
+    Martabak: "Martabak Manis",
+    MieInstan: "Mie Instan",
+    Gerobak: "Gerobak Mie",
+    LumbaLumba: "Lumba-lumba",
+    BlackPanther: "Macan Kumbang",
+    GerobakDesa: "Gerobak",
+    KunangKunang: "Kunang-kunang",
+    Lentera: "Lentera Tua"
+};
+
+game.var.objectName = function(key) {
+    return game.var.objectNames[key] ||
+        String(key).replace(/([a-z])([A-Z])/g, "$1 $2");
+};
+
+game.var.worldNames = {
+    KEBUN: "Kebun",
+    PASAR: "Pasar",
+    WARUNG: "Warung",
+    PANTAI: "Pantai",
+    HUTAN: "Hutan",
+    DESA: "Desa",
+    MISTERI: "Misteri"
+};
+
 game.var.ACHIEVEMENTS = [
     {
         id: "first_merge",
-        title: "First Merge",
-        description: "Merge an object for the first time.",
+        title: "Gabungan Pertama",
+        description: "Gabungkan dua benda yang sama.",
         type: "mergeCount",
         target: 1,
         rewardCoin: 10
@@ -576,8 +614,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "merge_100",
-        title: "Merge Maniac",
-        description: "Merge 100 objects.",
+        title: "Tukang Tumpuk",
+        description: "Gabungkan 100 kali.",
         type: "mergeCount",
         target: 100,
         rewardCoin: 50
@@ -585,8 +623,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "combo_5",
-        title: "Nice Combo!",
-        description: "Reach a x5 combo.",
+        title: "Combo Mantap",
+        description: "Capai combo x5.",
         type: "combo",
         target: 5,
         rewardCoin: 25
@@ -594,8 +632,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "combo_10",
-        title: "Combo Master",
-        description: "Reach a x10 combo.",
+        title: "Raja Combo",
+        description: "Capai combo x10.",
         type: "combo",
         target: 10,
         rewardCoin: 50
@@ -603,8 +641,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "combo_20",
-        title: "Combo Madness",
-        description: "Reach a x20 combo.",
+        title: "Combo Gila",
+        description: "Capai combo x20.",
         type: "combo",
         target: 20,
         rewardCoin: 100
@@ -612,8 +650,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "score_10000",
-        title: "Getting Serious",
-        description: "Reach 10,000 score in one game.",
+        title: "Mulai Serius",
+        description: "Dapat 10.000 skor dalam satu permainan.",
         type: "score",
         target: 10000,
         rewardCoin: 50
@@ -621,8 +659,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "score_50000",
-        title: "High Roller",
-        description: "Reach 50,000 score in one game.",
+        title: "Skor Raksasa",
+        description: "Dapat 50.000 skor dalam satu permainan.",
         type: "score",
         target: 50000,
         rewardCoin: 150
@@ -630,8 +668,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "first_final_object",
-        title: "Evolution Complete",
-        description: "Create the final object on any map.",
+        title: "Evolusi Lengkap",
+        description: "Buat benda terakhir di dunia mana pun.",
         type: "objectLevel",
         target: 11,
         rewardCoin: 100
@@ -639,8 +677,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "play_all_maps",
-        title: "Traveler",
-        description: "Play every map.",
+        title: "Penjelajah",
+        description: "Main di semua dunia.",
         type: "mapsPlayed",
         target: Object.keys(game.var.suikaLevels).length,
         rewardCoin: 100
@@ -656,8 +694,8 @@ game.var.ACHIEVEMENTS = [
 
         return {
             id: `final_${level.toLowerCase()}`,
-            title: `${level} Master`,
-            description: `Create ${finalObject}.`,
+            title: `Juara ${game.var.worldNames[level] || level}`,
+            description: `Buat ${game.var.objectName(finalObject)}.`,
             type: "objectLevel",
             level,
             target: objects.length,
@@ -667,8 +705,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "master_all_maps",
-        title: "Master of Everything",
-        description: "Create the final object on every map.",
+        title: "Juara Nusantara",
+        description: "Buat benda terakhir di semua dunia.",
         type: "finalMaps",
         objectLevel: 11,
         target: Object.keys(game.var.suikaLevels).length,
@@ -677,8 +715,8 @@ game.var.ACHIEVEMENTS = [
 
     {
         id: "games_10",
-        title: "Keep Going",
-        description: "Finish 10 games.",
+        title: "Pantang Menyerah",
+        description: "Selesaikan 10 permainan.",
         type: "gamesPlayed",
         target: 10,
         rewardCoin: 50
