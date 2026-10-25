@@ -100,7 +100,8 @@ const DataManifest = [
 	{
 		"name": "DESA_BGM",
 		"type": "audio",
-		"src": "data/audio/"
+		"src": "data/audio/",
+		"lazy": true
 	},
 	{
 		"name": "HUTAN",
@@ -110,7 +111,8 @@ const DataManifest = [
 	{
 		"name": "HUTAN_BGM",
 		"type": "audio",
-		"src": "data/audio/"
+		"src": "data/audio/",
+		"lazy": true
 	},
 	{
 		"name": "KEBUN",
@@ -120,7 +122,8 @@ const DataManifest = [
 	{
 		"name": "KEBUN_BGM",
 		"type": "audio",
-		"src": "data/audio/"
+		"src": "data/audio/",
+		"lazy": true
 	},
 	{
 		"name": "loading sfx",
@@ -135,7 +138,8 @@ const DataManifest = [
 	{
 		"name": "MISTERI_BGM",
 		"type": "audio",
-		"src": "data/audio/"
+		"src": "data/audio/",
+		"lazy": true
 	},
 	{
 		"name": "PANTAI",
@@ -145,7 +149,8 @@ const DataManifest = [
 	{
 		"name": "PANTAI_BGM",
 		"type": "audio",
-		"src": "data/audio/"
+		"src": "data/audio/",
+		"lazy": true
 	},
 	{
 		"name": "PASAR",
@@ -155,7 +160,8 @@ const DataManifest = [
 	{
 		"name": "PASAR_BGM",
 		"type": "audio",
-		"src": "data/audio/"
+		"src": "data/audio/",
+		"lazy": true
 	},
 	{
 		"name": "playClick",
@@ -170,7 +176,8 @@ const DataManifest = [
 	{
 		"name": "WARUNG_BGM",
 		"type": "audio",
-		"src": "data/audio/"
+		"src": "data/audio/",
+		"lazy": true
 	},
 	{
 		"name": "wind",

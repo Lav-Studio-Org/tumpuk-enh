@@ -151,9 +151,14 @@ import DataManifest, { TextureManifest, LevelTextureSettings, InitiallyLoadedTex
  * Initialize the application
  */
 export default async function onload() {
+	// WebGL2 when the device has it, Canvas otherwise (AUTO would try WebGPU first,
+	// and a hard WEBGL request leaves WebGL1-only phones on a black screen).
+	const hasWebGL2 = (() => {
+		try { return !!document.createElement("canvas").getContext("webgl2"); } catch (e) { return false; }
+	})();
 	const app = new Application(540, 960, {
 		parent: "screen",
-		renderer: me.video.WEBGL, scale: "auto",
+		renderer: hasWebGL2 ? me.video.WEBGL : me.video.CANVAS, scale: "auto",
 		scaleMethod: "flex-height",
 		antiAlias: true,
 		subPixel: true,
@@ -173,18 +178,12 @@ export default async function onload() {
 	// allow cross-origin for image/texture loading
 	me.loader.setOptions({ crossOrigin: "anonymous", withCredentials: true });
 
-	import('./lib/plugins/debugPanel.js').then((plugin) => {
-		me.utils.function.defer(me.plugin.register, this, plugin.debugPanel, "debugPanel");
-	});
-	import('./lib/plugins/platformerController.js').then((plugin) => {
-		me.utils.function.defer(me.plugin.register, this, plugin.platformerController, "platformerController");
-	});
-	import('./lib/plugins/topDownController.js').then((plugin) => {
-		me.utils.function.defer(me.plugin.register, this, plugin.topDownController, "topDownController");
-	});
 
 	// set and load all resources.
-	const selectedManifest = DataManifest.map(resource => {
+	// World BGMs are marked `lazy`: they load in the background after start-up
+	// (see game.util.ensureAudio) so the first screen does not wait for them.
+	game.var.lazyAudio = DataManifest.filter(resource => resource.lazy);
+	const selectedManifest = DataManifest.filter(resource => !resource.lazy).map(resource => {
 		if (!resource.shaderVariants) return resource;
 		const language = application.renderer.shaderLanguage;
 		const src = resource.shaderVariants[language];
@@ -525,8 +524,9 @@ export default async function onload() {
 		me.pool.register('videoSpriteTP', __videoSpriteTP);
 		me.pool.register('collisionTP', __collisionTP);
 		me.pool.register('noSlopeCollisionTP', __noSlopeCollisionTP);
-		game.ShaderManager.initLoadedShaders(me.game.renderer);
+		game.ShaderManager?.initLoadedShaders(me.game.renderer);
 		me.state.change(me.state.LoadingGame);
+		game.util.loadLazyAudio();
 	},false);
 
 };

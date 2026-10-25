@@ -62,7 +62,6 @@ export default class gameplayUI extends me.UIBaseElement {
         // Put user code here //
         game.var.scoreObj = this.getChildByName("score")[0];
         game.var.highscoreObj = this.getChildByName("highscore")[0];
-        console.log(this.getChildByName("highscore"));
         const currentLevel =
             String(game.var.currentLevel || "KEBUN").toUpperCase();
 

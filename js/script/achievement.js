@@ -385,7 +385,6 @@ function giveReward(
     );
 
 
-    console.log(game.var.coinObj);
     /*
      * Kalau coin UI sedang tampil,
      * langsung update juga.
@@ -465,10 +464,6 @@ function unlock(
     };
 
 
-    console.log(
-        `[Achievement] Unlocked: ${achievement.title}`,
-        data
-    );
 
 
     /*
@@ -824,7 +819,7 @@ game.achievement = {
      * contoh:
      *
      * game.achievement.onUnlock(data => {
-     *     console.log(data.title);
+     *     
      * });
      */
     onUnlock(callback) {
@@ -944,9 +939,6 @@ game.achievement = {
         }
 
 
-        console.log(
-            "[Achievement] All achievement data has been reset."
-        );
     },
 
     /*

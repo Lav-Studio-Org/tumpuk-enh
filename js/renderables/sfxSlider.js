@@ -131,7 +131,6 @@ export default class sfxSlider extends me.Slider {
 	onActivateEvent() {
 		super.onActivateEvent();
         // Put user code here //
-        console.log(this.isKinematic)
         //  End of user code  //
 	}
 

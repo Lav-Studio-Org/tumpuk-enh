@@ -37,6 +37,57 @@ game.util.addScore = function(amount) {
         game.var.scoreValue
     );
 };
+game.var.audioReady = game.var.audioReady || {};
+game.var.audioWaiters = game.var.audioWaiters || {};
+
+// Load one lazy audio clip (once). callback(ok) runs when it is ready or failed.
+game.util.ensureAudio = function(name, callback) {
+    if (name in game.var.audioReady) {
+        callback?.(game.var.audioReady[name]);
+        return;
+    }
+
+    const waiters = game.var.audioWaiters[name];
+
+    if (waiters) {
+        if (callback) waiters.push(callback);
+        return;
+    }
+
+    const resource = (game.var.lazyAudio || []).find(item => item.name === name);
+
+    if (!resource) {
+        callback?.(true);
+        return;
+    }
+
+    game.var.audioWaiters[name] = callback ? [callback] : [];
+
+    const done = (ok) => {
+        game.var.audioReady[name] = ok;
+        const list = game.var.audioWaiters[name] || [];
+        delete game.var.audioWaiters[name];
+        list.forEach(fn => fn(ok));
+    };
+
+    try {
+        me.loader.load(resource, () => done(true), () => done(false));
+    } catch (e) {
+        done(false);
+    }
+};
+
+// Background-load every lazy clip, one at a time, after start-up.
+game.util.loadLazyAudio = function() {
+    const queue = [...(game.var.lazyAudio || [])];
+
+    const next = () => {
+        const item = queue.shift();
+        if (item) game.util.ensureAudio(item.name, () => setTimeout(next, 200));
+    };
+
+    setTimeout(next, 1500);
+};
 game.util.sceneAssets = function(scene, level = game.var.currentLevel, type = "load") {
     const config = game.var.CONFIG.SCENES[scene];
     if (!config) return [];
@@ -199,7 +250,6 @@ game.util.openAchievement = function() {
         return;
     }
 
-    console.log(melon.game.height());
     const container =
         melon.object.spawn(
             "achievementContainer",

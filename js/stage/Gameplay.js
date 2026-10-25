@@ -240,11 +240,6 @@ export default class Gameplay extends me.Stage {
             game.var.coinValue
         );
 
-        console.log("[RESULT]", {
-            score: game.var.finalScore,
-            rewardCoin: game.var.rewardCoin,
-            totalCoin: game.var.coinValue
-        });
 
 
         melon.object.spawn("resultContainer", {
@@ -271,10 +266,25 @@ export default class Gameplay extends me.Stage {
     }
 
     startLevelBGM() {
-        const bgm = game.var.currentBGM;
-
         const bgmName =
             `${String(game.var.currentLevel).toUpperCase()}_BGM`;
+
+        // World BGMs load lazily; start once this one is ready,
+        // but only if the player is still in this world.
+        if (!game.var.audioReady[bgmName]) {
+            game.util.ensureAudio(bgmName, (ok) => {
+                if (
+                    ok &&
+                    melon.scene.current() === "Gameplay" &&
+                    `${String(game.var.currentLevel).toUpperCase()}_BGM` === bgmName
+                ) {
+                    this.startLevelBGM();
+                }
+            });
+            return;
+        }
+
+        const bgm = game.var.currentBGM;
 
         // Kalau ada BGM lama
         if (

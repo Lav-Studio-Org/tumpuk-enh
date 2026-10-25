@@ -105,7 +105,6 @@ export default class suikaObj extends me.Sprite {
         this._spawnPopScale = 1;
 
 		this.objLevel = settings.objLevel ?? 1;
-        console.log(scale);
         this.scale(1/scale.x, 1/scale.y);
         this.isSkillHover = false;
 
@@ -397,9 +396,6 @@ export default class suikaObj extends me.Sprite {
             me.timer.getTime();
 
 
-        console.log(
-            `[SUika Combo] Chain ${chain} -> ${soundName}`
-        );
     }
 
     playComboSoundleg() {
@@ -490,9 +486,6 @@ export default class suikaObj extends me.Sprite {
         );
 
 
-        console.log(
-            `[Suika Combo] x${game.var.comboCount} -> ${soundName}`
-        );
 
 
         return game.var.comboCount;
@@ -772,12 +765,6 @@ export default class suikaObj extends me.Sprite {
         }
 
 
-        console.log(
-            `[Combo] x${combo}`,
-            `note=${noteName}`,
-            soundName,
-            `pitch=${pitchRate.toFixed(3)}`
-        );
 
 
         return combo;
@@ -1024,12 +1011,6 @@ export default class suikaObj extends me.Sprite {
     }
 
 
-    console.log(
-        `[Combo] x${combo}`,
-        `note=${noteName}`,
-        soundName,
-        `rate=${pitchRate.toFixed(3)}`
-    );
 
 
     return combo;

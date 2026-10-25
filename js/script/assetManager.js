@@ -156,7 +156,7 @@ export default () => {
 		 *
 		 * await game.assets.load("Level Background", {
 		 *     onProgress(info) {
-		 *         console.log(info.progress);
+		 *         
 		 *     }
 		 * });
 		 */

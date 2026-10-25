@@ -135,10 +135,6 @@ export default class GameplayTest extends me.Stage {
         game.var.finalScore =
             game.var.scoreValue;
 
-        console.log(
-            "GAME OVER",
-            game.var.finalScore
-        );
 
         melon.object.spawn("modar", {
             x: melon.game.width()/2,
