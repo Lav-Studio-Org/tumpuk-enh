@@ -240,7 +240,9 @@ game.util.getSuikaScale = function(level, objectIndex = 0) {
         scale = scaleConfig;
     }
 
-    return scale * (game.var.suikaScaleMultiplier ?? 1);
+    const tier = game.var.suikaTierScale?.[objectIndex] ?? 1;
+
+    return scale * tier * (game.var.suikaScaleMultiplier ?? 1);
 };
 game.util.openAchievement = function() {
 

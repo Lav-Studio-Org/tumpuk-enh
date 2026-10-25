@@ -12,6 +12,12 @@ import game from '../game.js'
 game.var.MIN_LOADING_TIME = 2700;
 game.var.suikaScaleMultiplier = 0.80;
 
+// Per-tier size factor on top of suikaScale (which only evens out image sizes).
+// The art came with a flat curve (tier 11 only ~2.5x tier 1), so random drops
+// merged all the way to the final object. A steeper curve (~4x) makes big objects
+// claim real space. Tuned with scripts/balance.js.
+game.var.suikaTierScale = [0.81, 0.80, 0.90, 0.91, 0.97, 0.94, 1.00, 1.08, 1.12, 1.14, 1.24];
+
 game.var.CONFIG = {
     ASSET_MODE: "PRELOAD_ALL", // PRELOAD_ALL | PER_SCENE
     START_SCENE: "Main",

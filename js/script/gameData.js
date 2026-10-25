@@ -13,7 +13,7 @@ game.var.isGameOver = false;
 game.var.isDanger = false;
 
 game.var.dangerTime = 0;
-game.var.dangerDuration = 5000;
+game.var.dangerDuration = 3500;
 
 game.var.dangerY = 300;
 

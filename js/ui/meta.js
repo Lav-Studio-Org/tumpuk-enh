@@ -20,12 +20,12 @@ export const WORLD_NAMES = {
 // to open it right away. Tuned with scripts/balance.js (bot score distribution):
 // the first target sits near a casual player's 2nd-3rd game.
 export const WORLD_UNLOCK = {
-    PASAR: { score: 1500, coins: 300 },
-    WARUNG: { score: 2000, coins: 400 },
-    PANTAI: { score: 2500, coins: 500 },
-    HUTAN: { score: 3000, coins: 600 },
-    DESA: { score: 3500, coins: 700 },
-    MISTERI: { score: 4000, coins: 800 }
+    PASAR: { score: 4000, coins: 300 },
+    WARUNG: { score: 5000, coins: 400 },
+    PANTAI: { score: 6000, coins: 500 },
+    HUTAN: { score: 7000, coins: 600 },
+    DESA: { score: 8000, coins: 700 },
+    MISTERI: { score: 9000, coins: 800 }
 };
 
 export const SKILLS = {

@@ -9,14 +9,21 @@ const URL = process.env.URL || 'http://localhost:8123/';
 const shotsDir = process.argv.includes('--shots') ? process.argv[process.argv.indexOf('--shots') + 1] : null;
 
 (async () => {
-  const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required', '--mute-audio'] });
+  const browser = await chromium.launch({ args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required', '--mute-audio'] });
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
   const step = async (name, fn) => {
     process.stdout.write(`- ${name} ... `);
-    await fn();
+    try {
+      await fn();
+    } catch (e) {
+      console.log('FAILED');
+      console.error('Page errors so far:\n' + (errors.join('\n') || '(none)'));
+      console.error('Scene:', await page.evaluate(() => window.__tumpuk ? window.__tumpuk.melon.scene.current() : 'no __tumpuk').catch(() => '?'));
+      throw e;
+    }
     if (shotsDir) await page.screenshot({ path: `${shotsDir}/${name.replace(/\W+/g, '-')}.png` });
     console.log('ok');
   };
@@ -27,7 +34,7 @@ const shotsDir = process.argv.includes('--shots') ? process.argv[process.argv.in
   await page.goto(URL);
 
   await step('boot to menu', async () => {
-    await page.waitForFunction(() => window.__tumpuk && window.__tumpuk.melon.scene.current() === 'Main', null, { timeout: 60000 });
+    await page.waitForFunction(() => window.__tumpuk && window.__tumpuk.melon.scene.current() === 'Main', null, { timeout: 120000 });
     expect(await T(() => document.documentElement.lang) === 'id', 'html lang must be id');
   });
 
